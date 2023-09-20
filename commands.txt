@@ -1,0 +1,26 @@
+composer create-project laravel/laravel "Project Name"
+php artisan serve
+php artisan migrate
+php artisan make:model student
+php artisan make:controller studentController
+php artisan make:migration create_student_table
+
+php artisan make:model Student -mcr
+
+
+php artisan cache:clear
+php artisan route:clear
+php artisan config:clear
+php artisan view:clear
+
+composer require doctrine/dbal
+php artisan make:migration change_name_coulmn_name_students --table=students
+
+
+
+$request->validate([
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate file type and size
+    ]);
+$imagePath = $request->file('image')->store('public');
+$imageUrl = asset('storage/' . $imagePath);
+
