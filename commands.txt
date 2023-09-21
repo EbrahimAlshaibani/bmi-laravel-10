@@ -24,3 +24,12 @@ $request->validate([
 $imagePath = $request->file('image')->store('public');
 $imageUrl = asset('storage/' . $imagePath);
 
+      foreach ($request->file('images') as $imagefile) {
+            $i++;
+            $blogImageName = time().'-'.$i.'.'.$imagefile->extension();
+            $imagefile->move(public_path('images'), $blogImageName);
+            $blogImage = BlogImages::create([
+                'bolg_id' => $blog->id,
+                'image_path' => $blogImageName,
+            ]);
+          }

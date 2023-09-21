@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('home');
  // Route::get('/student',[StudentController::class,'index'])->name('student.index');
  // Route::get('/student/create',[StudentController::class,'create'])->name('student.create');
  // Route::post('/student/store',[StudentController::class,'store'])->name('student.store');

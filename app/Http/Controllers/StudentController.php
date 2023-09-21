@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File; 
 
 class StudentController extends Controller
 {
@@ -29,6 +31,12 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+        // $file = $request->file('image');
+        // $newFileName = time() . '_' . $file->getClientOriginalName();
+        // $file->move(public_path('images'), $newFileName);
+        // File::delete("images/1695178562_logo.jpg");
+
+        // dd($newFileName);
         $request->validate([
             'uni_id' => 'bail|required|unique:students|max:255',
             'phone' => 'sometimes|unique:students',
