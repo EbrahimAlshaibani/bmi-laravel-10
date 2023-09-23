@@ -1,4 +1,5 @@
 @extends('layouts.master')
+
 @section('content')
 <form action="{{route('students.store')}}" method="POST" class="row g-3 needs-validation" enctype="multipart/form-data">
   @csrf

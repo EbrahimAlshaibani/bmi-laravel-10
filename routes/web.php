@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 })->name('home');
+
  // Route::get('/student',[StudentController::class,'index'])->name('student.index');
  // Route::get('/student/create',[StudentController::class,'create'])->name('student.create');
  // Route::post('/student/store',[StudentController::class,'store'])->name('student.store');
@@ -24,7 +25,6 @@ Route::get('/', function () {
  // Route::put('/student/{student}/udpate',[StudentController::class,'update'])->name('student.update');
  // Route::get('/student/{student}/show',[StudentController::class,'show'])->name('student.show');
  Route::get('/student/{student}/delete',[StudentController::class,'delete'])->name('student.delete');
- 
  Route::resource('students', StudentController::class);
  
  // Route::resources('student','StudentController')->name('student');

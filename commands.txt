@@ -1,7 +1,7 @@
 composer create-project laravel/laravel "Project Name"
 php artisan serve
 php artisan migrate
-php artisan make:model student
+php artisan make:model Student
 php artisan make:controller studentController
 php artisan make:migration create_student_table
 
@@ -14,7 +14,7 @@ php artisan config:clear
 php artisan view:clear
 
 composer require doctrine/dbal
-php artisan make:migration change_name_coulmn_name_students --table=students
+php artisan make:migration change_name_coulmn_students --table=students
 
 
 
