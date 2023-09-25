@@ -18,6 +18,20 @@ php artisan make:migration change_name_coulmn_students --table=students
 
 
 
+composer require laravel/ui
+php artisan ui bootstrap --auth
+
+
+
+
+
+
+
+
+
+
+
+
 $request->validate([
         'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate file type and size
     ]);

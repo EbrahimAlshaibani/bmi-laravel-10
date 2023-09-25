@@ -34,7 +34,7 @@
       <td>
         <a href="{{route('students.edit',$student)}}" class="btn btn-sm btn-secondary">edit</a>
         <a href="{{route('students.show',$student)}}" class="btn btn-sm btn-secondary">Show</a>
-        <form method="POST" action="{{ route('students.destroy', $student) }}" onsubmit="return confirm('Are you sure you want to delete this student?');">
+        <form method="POST" action="{{ route('students.destroy', $student) }}" onsubmit="return confirm('Are you sure you want to delete this student?');" class="d-inline">
           @csrf
           @method('DELETE')
           <button type="submit" class="btn btn-sm btn-danger">Delete</button>

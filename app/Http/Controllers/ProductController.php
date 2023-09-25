@@ -7,14 +7,16 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
     public function index()
     {
         $products = Product::all();
-        return view('prod.product.index',compact('products'));
-        // return view('prod.product.index')->with('products',$products);
+        return view('product.index',compact('products'));
+        // return view('product.index')->with('products',$products);
     }
 
     /**
@@ -22,7 +24,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('prod.product.create');
+        return view('product.create');
     }
 
     /**
@@ -44,7 +46,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view("prod.product.show",compact('product'));
+        return view("product.show",compact('product'));
     }
 
     /**
@@ -52,7 +54,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view("prod.product.edit",compact('product'));
+        return view("product.edit",compact('product'));
     }
 
     /**
@@ -75,5 +77,12 @@ class ProductController extends Controller
     {
         $product->delete();
         return redirect()->route('products.index')->with('success','Product was deleted successfully !');
+    }
+
+
+    function toggleAvailablity (Product $product) {
+        $product->is_available = !$product->is_available;
+        $product->update();
+        return redirect()->route('products.index')->with('success','Product was toggled successfully !');
     }
 }

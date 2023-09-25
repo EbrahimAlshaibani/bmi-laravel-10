@@ -1,0 +1,13 @@
+.btn-primary{
+    background-color: cadetblue;
+    border-color: cadetblue;
+    border-radius: 0px;
+}
+.btn-primary:hover{
+    background-color: rgb(114, 158, 159);
+    border-color: rgb(114, 158, 159);
+}
+.btn-primary:focus{
+    background-color: rgb(61, 144, 146) !important;
+    border-color: rgb(74, 150, 151) !important;
+}

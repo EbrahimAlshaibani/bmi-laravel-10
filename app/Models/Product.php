@@ -12,6 +12,7 @@ class Product extends Model
         'number',
         'name',
         'price',
-        'brand'
+        'brand',
+        'is_available',
     ];
 }

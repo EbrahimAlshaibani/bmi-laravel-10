@@ -1,4 +1,4 @@
-@extends('prod.layouts.master')
+@extends('layouts.master')
 @section('title')
     Product {{$product->number}}
 @endsection

@@ -10,7 +10,10 @@
             <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" aria-current="page" href=" {{ route('home') }} ">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{ Request::is('/students') ? 'active' : '' }}" href=" {{ route('students.index') }} ">Students</a>
+            <a class="nav-link {{ Request::is('students') ? 'active' : '' }}" href=" {{ route('students.index') }} ">Students</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {{ Request::is('products') ? 'active' : '' }}" href=" {{ route('products.index') }} ">Products</a>
           </li>
         </ul>
       </div>
