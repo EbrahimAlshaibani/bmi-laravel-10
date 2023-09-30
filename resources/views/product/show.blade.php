@@ -9,6 +9,10 @@
         <h4 class="card-title">{{$product->number}}</h4>
         <h4 class="card-title">{{$product->name}}</h4>
         <p class="card-text">{{$product->price}} | {{$product->brand}} </p>
+        @foreach ($product->images as $image)
+            <img src="{{asset("images/$image->path")}}" alt="" width=100>
+        @endforeach
+
       </div>
     </div>
 @endsection

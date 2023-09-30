@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Image;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -32,12 +33,32 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        Product::create([
+
+      
+        // File::delete("images/1695178562_logo.jpg");
+
+        $request->validate([
+            'number' =>'required|unique:products|min:5|max:5',
+            'name' =>'required',
+            'price' =>'required',
+            'image' =>'image',
+        ]);
+        $product =  Product::create([
             'number'=>$request->number,
             'name'=>$request->name,
             'price'=>$request->price,
             'brand'=>$request->brand,
         ]);
+        $file = $request->file('image');
+        $newFileName = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('images'), $newFileName);
+
+        Image::create([
+            'product_id' => $product->id,
+            'path'=>$newFileName
+        ]);
+
+
         return redirect()->route('products.create')->with('success','Product was added successfully !');
     }
 
@@ -62,6 +83,11 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        $request->validate([
+            'number' =>'required|min:5|max:5',
+            'name' =>'required',
+            'price' =>'required',
+        ]);
         $product->number = $request->number;
         $product->name = $request->name;
         $product->price = $request->price;
