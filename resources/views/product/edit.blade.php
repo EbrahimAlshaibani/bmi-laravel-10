@@ -3,7 +3,7 @@
     Edit Product {{ $product->number }}
 @endsection
 @section('content')
-<form action="{{route('products.update',$product)}}" class="row" method="POST">
+<form enctype="multipart/form-data" action="{{route('products.update',$product)}}" class="row" method="POST">
     @csrf
     @method("PUT")
     <div class="col-6">
@@ -30,6 +30,12 @@
     <div class="col-6">
         <label for="brand">Product Brand</label>
         <input type="text" id="brand" name="brand" class="form-control" value="{{ $product->brand }}">
+    </div>
+
+    <div class="col-12">
+        <label for="image">Product Image</label>
+        <input type="file" id="image" name="images[]" class="form-control" multiple>
+        <p class="text-danger">@error('image') {{$message}} @enderror</p>
     </div>
 
     <button type="submit" class="btn btn-success btn-sm mt-2">Update</button>

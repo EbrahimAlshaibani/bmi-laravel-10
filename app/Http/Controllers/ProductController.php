@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Image;
 use App\Models\Product;
+use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
@@ -15,7 +17,15 @@ class ProductController extends Controller
     // }
     public function index()
     {
-        $products = Product::all();
+        $products = Product::withCount('images')->with('images')
+        ->latest()->limit(5)->get();
+        // $products = Product::where("name","Cola")
+        // ->where("price",">=","150")
+        // ->where('name',"like","%a%")
+        // ->where("brand","<>","Pepsi")
+        // ->withCount('images')
+        // ->with('images')
+        // ->paginate();
         return view('product.index',compact('products'));
         // return view('product.index')->with('products',$products);
     }
@@ -33,33 +43,31 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-
-      
-        // File::delete("images/1695178562_logo.jpg");
-
         $request->validate([
             'number' =>'required|unique:products|min:5|max:5',
-            'name' =>'required',
-            'price' =>'required',
+            'name' =>'required|max:50',
+            'price' =>'required|numeric',
             'image' =>'image',
         ]);
+        
         $product =  Product::create([
             'number'=>$request->number,
             'name'=>$request->name,
             'price'=>$request->price,
             'brand'=>$request->brand,
         ]);
-        $file = $request->file('image');
-        $newFileName = time() . '_' . $file->getClientOriginalName();
-        $file->move(public_path('images'), $newFileName);
-
-        Image::create([
-            'product_id' => $product->id,
-            'path'=>$newFileName
-        ]);
-
-
-        return redirect()->route('products.create')->with('success','Product was added successfully !');
+        if($request->file('images')){
+            foreach ($request->file('images') as $key => $image) {
+                $newFileName = time() ."$key .". $image->getClientOriginalExtension();
+                $image->move(public_path('images'), $newFileName);
+                Image::create([
+                    'product_id' => $product->id,
+                    'path'=>$newFileName
+                ]);
+            }
+        }
+       
+        return redirect()->route('products.index')->with('success','Product was added successfully !');
     }
 
     /**
@@ -93,6 +101,27 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->brand = $request->brand;
         $product->update();
+        if($request->file('images')){
+            if($product->images){
+                foreach ($product->images as $key => $image) {
+                    File::delete("images/$image->path");
+                    $image->delete();
+                }
+            }
+            foreach ($request->file('images') as $key => $image) {
+                $newFileName = time() ."$key .". $image->getClientOriginalExtension();
+                $image->move(public_path('images'), $newFileName);
+                Image::create([
+                    'product_id' => $product->id,
+                    'path'=>$newFileName
+                ]);
+            }
+        }
+      
+
+        
+
+
         return redirect()->route('products.index')->with('success','Product was edited successfully !');
     }
 

@@ -29,11 +29,11 @@ php artisan ui bootstrap --auth
 
 
 
-
+composer require barryvdh/laravel-debugbar --dev
 
 
 $request->validate([
-        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate file type and size
+        'image' => 'required||mimes:jpeg,png,jpg,gif|max:2048', // Validate file type and size
     ]);
 $imagePath = $request->file('image')->store('public');
 $imageUrl = asset('storage/' . $imagePath);

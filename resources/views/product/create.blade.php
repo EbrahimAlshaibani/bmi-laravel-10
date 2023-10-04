@@ -8,19 +8,19 @@
         @method("POST")
         <div class="col-6">
             <label for="number">Product Number</label>
-            <input type="text" id="number" name="number" class="form-control" value="{{old('number')}}">
+            <input type="text" id="number" name="number" maxlength="5" class="form-control @error('number') is-invalid @enderror" value="{{old('number')}}" required>
             <p class="text-danger">@error('number') {{$message}} @enderror</p>
         </div>
 
         <div class="col-6">
             <label for="name">Product Name</label>
-            <input type="text" id="name" name="name" class="form-control">
+            <input type="text" id="name" name="name" class="form-control" value="{{old('name')}}" required>
             <p class="text-danger">@error('name') {{$message}} @enderror</p>
         </div>
 
         <div class="col-6">
             <label for="price">Product Price</label>
-            <input type="text" id="price" name="price" class="form-control">
+            <input type="number" id="price" name="price" class="form-control" value="{{old('price')}}" required>
             <p class="text-danger">@error('price') {{$message}} @enderror</p>
         </div>
 
@@ -32,7 +32,7 @@
 
         <div class="col-12">
             <label for="image">Product Image</label>
-            <input type="file" accept=".pdf,.png" id="image" name="image" class="form-control">
+            <input type="file" accept=".jpg,.png" id="image" name="images[]" class="form-control" multiple>
             <p class="text-danger">@error('image') {{$message}} @enderror</p>
         </div>
 

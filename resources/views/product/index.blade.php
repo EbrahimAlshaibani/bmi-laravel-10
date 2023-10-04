@@ -21,6 +21,7 @@
             <td>Product Name</td>
             <td>Product Price</td>
             <td>Product Brand</td>
+            <td>Images Count</td>
             <td>Is Available</td>
             <td style="width: 200px" >Actions</td>
           </tr>
@@ -33,6 +34,13 @@
                 <td>{{$product->name}}</td>
                 <td>{{$product->price}}</td>
                 <td>{{$product->brand}}</td>
+                {{-- <td>{{$product->images_count}}</td> --}}
+                <td>
+                  @foreach ($product->images as $image)
+                      <img src="{{asset("images/$image->path")}}" width=50 alt="">
+                  @endforeach
+                </td>
+
                 <td>
                   
                 
@@ -67,7 +75,45 @@
               </tr>
               @endforeach
         </tbody>
+        
     </table>
+    {{-- {{$products->links()}} --}}
+    <div>
+      <canvas id="myChart"></canvas>
+    </div>
+
+
+    
+  <script>
+      const ctx = document.getElementById('myChart');
+    
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: [
+          @foreach ($products as $product)
+            "{{$product->name}}",
+          @endforeach],
+          datasets: [{
+            label: '# of Votes',
+            data: 
+            [
+          @foreach ($products as $product)
+            {{$product->images_count}},
+          @endforeach]
+            ,
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    </script>
     @endif
 
 @endsection
